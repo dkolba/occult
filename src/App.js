@@ -1,31 +1,20 @@
 // @ts-check
 import { useTranslation } from "react-i18next";
 import { Suspense } from "react";
+// TODO: 👇 Revisit when eslint supports workspaces
+// eslint-disable-next-line
+import { carriesFood, whichItem, duct, logger } from "cryptid";
 import { useStore } from "./store";
 import { toggle } from "./store/creator";
 import logo from "./logo.svg";
 import AppMascara from "./AppMascara";
 import HeaderMascara from "./HeaderMascara";
 import ImgMascara from "./ImgMascara";
-import { carriesFood, whichItem, duct, logger } from "cryptid";
 
 export const Page = () => {
   const [{ togglevault }, dispatch] = useStore();
   const { isToggled } = togglevault;
   const { t, i18n } = useTranslation();
-
-  const handleClick = () => {
-    dispatch(toggle());
-  };
-
-  const changeLanguage = (lng) => {
-    i18n.changeLanguage(lng);
-    handleName();
-  };
-
-  const onKeyPressHandler = () => {
-    console.log("Fill me with logic");
-  };
 
   const handleName = () => {
     const container = ["rucksack", "knapsack", "backpack", "pouch", "etui"];
@@ -46,6 +35,19 @@ export const Page = () => {
     );
 
     createInventory({ strength: 25 });
+  };
+
+  const handleClick = () => {
+    dispatch(toggle());
+  };
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    handleName();
+  };
+
+  const onKeyPressHandler = () => {
+    console.log("Fill me with logic");
   };
 
   return (
