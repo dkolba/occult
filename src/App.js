@@ -7,6 +7,7 @@ import logo from "./logo.svg";
 import AppMascara from "./AppMascara";
 import HeaderMascara from "./HeaderMascara";
 import ImgMascara from "./ImgMascara";
+import { carriesFood, whichItem, duct, logger } from "cryptid";
 
 export const Page = () => {
   const [{ togglevault }, dispatch] = useStore();
@@ -19,10 +20,32 @@ export const Page = () => {
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
+    handleName();
   };
 
   const onKeyPressHandler = () => {
     console.log("Fill me with logic");
+  };
+
+  const handleName = () => {
+    const container = ["rucksack", "knapsack", "backpack", "pouch", "etui"];
+    const food = ["bread", "shrimp", "tomato"];
+    const inventory = ["lint"];
+
+    const carriesFoodify = carriesFood();
+    const whichFoodify = whichItem(food, "inventory");
+    const whichContainerify = whichItem(container, "inventory");
+    const fillInventoryify = whichItem(inventory, "inventory");
+
+    const createInventory = duct(
+      carriesFoodify,
+      whichFoodify,
+      whichContainerify,
+      fillInventoryify,
+      logger
+    );
+
+    createInventory({ strength: 25 });
   };
 
   return (
